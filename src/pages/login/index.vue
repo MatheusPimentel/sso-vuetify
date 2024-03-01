@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import Login from './components/Login.vue'
-import SignUp from './components/SignUp.vue'
+import Login from './components/login/Login.vue'
+import SignUp from './components/signUp/SignUp.vue'
 import { ref } from 'vue'
 
 const isLogin = ref(true)
