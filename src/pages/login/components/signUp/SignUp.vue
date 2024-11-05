@@ -4,30 +4,30 @@
     v-model="validate"
     class="pr-3 pl-3"
   >
-    <p class="text-5xl font-bold pt-5 mx-auto flex justify-center">Sign Up</p>
+    <p class="text-5xl font-bold pt-5 mx-auto flex justify-center">{{ $t('pages.login.signup.fields.title') }}</p>
 
     <app-input
       class="w-full pt-10 rounded-lg"
       :rules="rulesRequired"
-      :label="'name'"
+      :label="$t('pages.login.signup.fields.name')"
     />
 
     <app-input
       class="w-full rounded-lg"
       :rules="rulesEmail"
-      :label="'email'"
+      :label="$t('pages.login.signup.fields.email')"
     />
 
     <app-input
       class="w-full"
       :rules="rulesRequired"
-      :label="'password'"
+      :label="$t('pages.login.signup.fields.password')"
       :type="'password'"
     />
 
     <app-btn
       class="bg-primary"
-      :label="'Sign up'"
+      :label="$t('pages.login.signup.buttons.signUp')"
       @click="validateForm"
     />
 
@@ -35,14 +35,14 @@
       class="mt-5 mx-auto flex justify-end underline cursor-pointer text-blue-600"
       @click="clickLink"
     >
-      already have an account? Sign in here
+      {{ $t('pages.login.signup.fields.signIn') }}
     </p>
   </v-form>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { validateEmail, validateRequired } from '@/util/validate'
+import {isEmail, isRequired} from '@/util/rules'
 
 const emit = defineEmits([
   'click-link'
@@ -51,19 +51,16 @@ const emit = defineEmits([
 let validate = ref(false)
 const form = ref<HTMLFormElement>()
 
-const isEmail = (email: string): boolean | string => validateEmail(email) || 'Email Inválido'
-const isRequired = (email: string | null | undefined): boolean | string => validateRequired(email) || 'Campo Obrigatório'
-
 const rulesEmail = computed(() => {
   return [
-    (email: string): boolean | string => isEmail(email),
-    (email: string | null | undefined): boolean | string => isRequired(email)
+    isEmail,
+    isRequired
   ]
 })
 
 const rulesRequired = computed(() => {
   return [
-    (senha: string | null | undefined): boolean | string => isRequired(senha)
+    isRequired
   ]
 })
 
