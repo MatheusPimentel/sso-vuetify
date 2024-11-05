@@ -6,5 +6,8 @@ const i18n = createI18n({
   legacy: false,
   messages: messages
 })
-window.app.i18n = i18n
+if (window?.app) {
+  window.app.i18n = i18n
+  console.log('window.app', window.app)
+}
 export default i18n

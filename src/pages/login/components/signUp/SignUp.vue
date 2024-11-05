@@ -1,10 +1,8 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="validate"
-    class="pr-3 pl-3"
-  >
-    <p class="text-5xl font-bold pt-5 mx-auto flex justify-center">{{ $t('pages.login.signup.fields.title') }}</p>
+  <v-form ref="form" v-model="formValid" class="px-3">
+    <p class="text-5xl font-bold pt-5 flex justify-center">
+      {{ $t('pages.login.signup.fields.title') }}
+    </p>
 
     <app-input
       class="w-full pt-10 rounded-lg"
@@ -22,7 +20,7 @@
       class="w-full"
       :rules="rulesRequired"
       :label="$t('pages.login.signup.fields.password')"
-      :type="'password'"
+      type="password"
     />
 
     <app-btn
@@ -32,8 +30,8 @@
     />
 
     <p
-      class="mt-5 mx-auto flex justify-end underline cursor-pointer text-blue-600"
-      @click="clickLink"
+      class="mt-5 flex justify-end underline cursor-pointer text-blue-600"
+      @click="$emit('click-link')"
     >
       {{ $t('pages.login.signup.fields.signIn') }}
     </p>
@@ -42,44 +40,23 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import {isEmail, isRequired} from '@/util/rules'
+import { isEmail, isRequired } from '@/util/rules'
 
-const emit = defineEmits([
-  'click-link'
-])
+defineEmits(['click-link'])
 
-let validate = ref(false)
-const form = ref<HTMLFormElement>()
+const form = ref<HTMLFormElement | null>(null)
+const formValid = ref(false)
 
-const rulesEmail = computed(() => {
-  return [
-    isEmail,
-    isRequired
-  ]
-})
-
-const rulesRequired = computed(() => {
-  return [
-    isRequired
-  ]
-})
+const rulesEmail = computed(() => [isEmail, isRequired])
+const rulesRequired = computed(() => [isRequired])
 
 const validateForm = async () => {
   if (!form.value) return
   const { valid } = await form.value.validate()
 
-  if (valid) {
-    alert('Formulário é válido')
-    return
-  }
-  alert('Formulário é inválido')
-}
-
-const clickLink = () => {
-  emit('click-link')
+  alert(valid ? 'Formulário é válido' : 'Formulário é inválido')
 }
 </script>
 
 <style scoped>
-
 </style>

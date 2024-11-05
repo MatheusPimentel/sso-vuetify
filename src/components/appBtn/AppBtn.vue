@@ -1,7 +1,6 @@
 <template>
   <v-btn
-    :block="block"
-    :color="color"
+    v-bind="props"
   >
     {{ label }}
   </v-btn>
@@ -9,11 +8,7 @@
 
 <script setup lang="ts">
 import { PropsAppBtn } from '@/components/appBtn/models/props'
-withDefaults(defineProps<PropsAppBtn>(), {
+const props = withDefaults(defineProps<PropsAppBtn>(), {
   block: true
 })
 </script>
-
-<style scoped>
-
-</style>
