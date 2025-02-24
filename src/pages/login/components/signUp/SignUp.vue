@@ -6,7 +6,7 @@
 
     <app-input
       class="w-full pt-10 rounded-lg"
-      :rules="rulesRequired"
+      required
       :label="$t('pages.login.signup.fields.name')"
     />
 
