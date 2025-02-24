@@ -8,13 +8,14 @@
 
     <app-input
       class="w-full pt-10 rounded-lg"
+      required
       :rules="rulesEmail"
       :label="$t('pages.login.login.fields.email')"
     />
 
     <app-input
       class="w-full"
-      :rules="rulesSenha"
+      required
       :label="$t('pages.login.login.fields.password')"
       type="password"
     />
@@ -36,15 +37,14 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { isEmail, isRequired } from '@/util/rules'
+import { isEmail } from '@/util/rules'
 
 defineEmits(['click-link'])
 
 const form = ref<HTMLFormElement | null>(null)
 const formValid = ref(false)
 
-const rulesEmail = computed(() => [isEmail, isRequired])
-const rulesSenha = computed(() => [isRequired])
+const rulesEmail = computed(() => [isEmail])
 
 const validateForm = async () => {
   if (!form.value) return

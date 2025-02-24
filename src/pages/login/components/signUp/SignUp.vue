@@ -12,13 +12,14 @@
 
     <app-input
       class="w-full rounded-lg"
+      required
       :rules="rulesEmail"
       :label="$t('pages.login.signup.fields.email')"
     />
 
     <app-input
       class="w-full"
-      :rules="rulesRequired"
+      required
       :label="$t('pages.login.signup.fields.password')"
       type="password"
     />
@@ -39,16 +40,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { isEmail, isRequired } from '@/util/rules'
+import {computed, ref} from 'vue'
+import {isEmail} from '@/util/rules'
 
 defineEmits(['click-link'])
 
 const form = ref<HTMLFormElement | null>(null)
 const formValid = ref(false)
 
-const rulesEmail = computed(() => [isEmail, isRequired])
-const rulesRequired = computed(() => [isRequired])
+const rulesEmail = computed(() => [isEmail])
 
 const validateForm = async () => {
   if (!form.value) return
